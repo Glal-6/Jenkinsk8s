@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+  stages {
+    stage('Checkout Source') {
+      steps {
+        git branch: 'main', url: ''
+      }
+    }
+        stage('Push backend') {
+            steps {
+                build job: ''
+            }
+        }
+        stage('Push proxy') {
+            steps {
+                build job: ''
+            }
+        }
+
+    stage('Deploying to Kubernetes') {
+      steps {
+        script {
+          sh './run-script.sh'
+        }
+      }
+    }
+  }
+}
